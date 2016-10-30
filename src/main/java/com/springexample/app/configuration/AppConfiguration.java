@@ -2,20 +2,17 @@ package com.springexample.app.configuration;
 
 import javax.inject.Inject;
 
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 
-import com.springexample.app.aop.LogginAspectAnnotationDriven;
-import com.springexample.app.aop.PropertyChangeTracker;
 import com.springexample.app.bean.HelloWorld;
 import com.springexample.app.bean.impl.FirstImpl;
 import com.springexample.app.bean.impl.HelloWorldImpl;
@@ -23,20 +20,23 @@ import com.springexample.app.bean.impl.MessageBean;
 import com.springexample.app.bean.impl.SecondImpl;
 import com.springexample.app.service.helloWorldService;
 import com.springexample.app.service.impl.HelloWorldServiceImpl;
+import com.springexample.aspectconfig.AspectConfig;
+import com.springexample.service.StudentService;
 
-@Aspect
+
 @Profile("dev")
 @Configuration // is used to define bean configuration similar to application context xml.
 //@ComponentScan(basePackages="com.springexample.app") // for using Autowired similar as used in xml.
+@Import(AspectConfig.class)
 @PropertySource("classpath:app.properties")
-@EnableAspectJAutoProxy  // For AOP Configuration
+
 public class AppConfiguration {
 	
 	@Inject Environment env;
 	
 	@Bean(name = "helloWorldBean" ,initMethod = "setup", destroyMethod = "cleanup")
 	@Scope("prototype")
-//	or @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+	//	or @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 	@Qualifier("BeanNameAsID")
 	@Description("This is bean description of helloWorldBean")
 	public HelloWorld helloWorld() {
@@ -77,16 +77,10 @@ public class AppConfiguration {
 		return sl;
 	}
 	
-	 // declare the aspect itself as a bean
-    @Bean
-    public PropertyChangeTracker propertyChangeTracker() {
-        return new PropertyChangeTracker();
-    }
-    
-    @Bean
-    public LogginAspectAnnotationDriven logginAspectAnnotationDriven(){
-    	return new LogginAspectAnnotationDriven();
-    }
+	@Bean(name="studentService")
+	public StudentService studentService(){
+		return new StudentService();
+	}
 	
 }
 
