@@ -20,6 +20,7 @@ import com.springexample.app.bean.impl.MessageBean;
 import com.springexample.app.bean.impl.SecondImpl;
 import com.springexample.app.service.helloWorldService;
 import com.springexample.app.service.impl.HelloWorldServiceImpl;
+import com.springexample.aspect.BeforeLoggingAspect;
 import com.springexample.aspectconfig.AspectConfig;
 import com.springexample.service.StudentService;
 
@@ -80,6 +81,12 @@ public class AppConfiguration {
 	@Bean(name="studentService")
 	public StudentService studentService(){
 		return new StudentService();
+	}
+	
+	// Defining AOP as a bean
+	@Bean
+	public BeforeLoggingAspect beforeLoggingAspect(){
+		return new BeforeLoggingAspect();
 	}
 	
 }
