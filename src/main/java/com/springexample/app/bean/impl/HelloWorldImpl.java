@@ -13,8 +13,6 @@ public class HelloWorldImpl implements HelloWorld {
 	private String ultimateAnswer;
 	private int years;
 
-
-
 	@ConstructorProperties({"years", "ultimateAnswer"})
 	public HelloWorldImpl(int years, String ultimateAnswer) {
 		this.years = years;

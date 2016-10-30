@@ -1,6 +1,6 @@
 package com.springexample.app.service;
 
-public interface helloWorldService {
+public interface HelloWorldService {
 
 	 String getMessageService();
 

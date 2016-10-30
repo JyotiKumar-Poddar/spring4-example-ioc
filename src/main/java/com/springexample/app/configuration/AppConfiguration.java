@@ -18,7 +18,7 @@ import com.springexample.app.bean.impl.FirstImpl;
 import com.springexample.app.bean.impl.HelloWorldImpl;
 import com.springexample.app.bean.impl.MessageBean;
 import com.springexample.app.bean.impl.SecondImpl;
-import com.springexample.app.service.helloWorldService;
+import com.springexample.app.service.HelloWorldService;
 import com.springexample.app.service.impl.HelloWorldServiceImpl;
 import com.springexample.aspect.BeforeLoggingAspect;
 import com.springexample.aspectconfig.AspectConfig;
@@ -41,19 +41,19 @@ public class AppConfiguration {
 	@Qualifier("BeanNameAsID")
 	@Description("This is bean description of helloWorldBean")
 	public HelloWorld helloWorld() {
-		System.out.println(env.getProperty("test"));
 		return new HelloWorldImpl(2016,"Year:");
 	}
 	
 	@Bean(name="helloWorldService")
 	@Description("This is hello bean service")
-	public helloWorldService helloWorldService(){
+	public HelloWorldService helloWorldService(){
 		return new HelloWorldServiceImpl();
 	}
 	
 	
 	@Bean(name="message-bean")
 	public MessageBean messageBean(){
+		System.out.println(env.getProperty("test"));
 		return new MessageBean();
 	}
 	

@@ -10,23 +10,9 @@ import org.springframework.core.env.AbstractEnvironment;
 import com.springexample.app.bean.FirstInterface;
 import com.springexample.app.bean.SecondInterfacae;
 import com.springexample.app.configuration.AppConfiguration;
-import com.springexample.app.service.helloWorldService;
+import com.springexample.app.service.HelloWorldService;
 import com.springexample.service.StudentService;
 import com.springexample.service.UserService;
-
-class A{
-	Date dob;
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-	
-}
-
 
 public class AppContextInitializer {
 
@@ -47,31 +33,19 @@ public class AppContextInitializer {
 		StudentService studentService = ctx.getBean("studentService",
 				StudentService.class);
 		studentService.printData();
-
+		
 		System.out.println("Active Profile Name ***"
 				+ System.getProperty("spring.profiles.active") + "***");
-
-		System.out.println(ctx);
-
-		helloWorldService helloWorldService = (com.springexample.app.service.helloWorldService) ctx
-				.getBean("helloWorldService");
+		
+		HelloWorldService helloWorldService =  ctx.getBean("helloWorldService",HelloWorldService.class);
 		System.out.println(helloWorldService.getMessageService());
-		DateTimeFormatter format = org.joda.time.format.DateTimeFormat
-				.forPattern("yyyyMMdd");
-		LocalDateTime lDate = org.joda.time.LocalDateTime.parse("20140518",
-				format);
-		Date dt = lDate.toDate();
-		A a = new A();
-		a.setDob(dt);
-		System.out.println(a.getDob());
-		System.out.println(new Date());
-		System.out.println(ctx.getBean("firstImpl"));
+	
 		// Resolving chicken egg problem.
 		FirstInterface first = ctx.getBean("firstImpl", FirstInterface.class);
+		first.printMessage();
 		SecondInterfacae second = ctx.getBean("secondImpl",
 				SecondInterfacae.class);
-		first.printMessage();
 		second.printMessage();
-	   
+		ctx.close();
 	}
 }
