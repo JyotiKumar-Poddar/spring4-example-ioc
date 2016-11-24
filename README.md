@@ -1,8 +1,11 @@
 # spring4-example-ioc
-Spring examples using Java Configuration 
-AOP  example
-Custom Annonation
-Java Configuration for Beans, Properties file, Profile
+
+### Project contains the java code for 
+
+- Spring examples using Java Configuration .
+- AOP  examples.
+- Custom Annonation.
+- Java Configuration for Beans, Properties file, Profile.
 
 # Main class 'AppContextInitializer'
 
